@@ -12,7 +12,7 @@ import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
-public class Object2d extends ShaderProgram{
+public class Object extends ShaderProgram{
 
     List<Vector3f> vertices;
     int vao;
@@ -22,9 +22,9 @@ public class Object2d extends ShaderProgram{
 
     int vboColor;
     List<Vector3f> verticesColor;
-    public Object2d(List<ShaderModuleData> shaderModuleDataList
+    public Object(List<ShaderModuleData> shaderModuleDataList
             , List<Vector3f> vertices
-            ,Vector4f color) {
+            , Vector4f color) {
         super(shaderModuleDataList);
         this.vertices = vertices;
         setupVAOVBO();
@@ -33,9 +33,9 @@ public class Object2d extends ShaderProgram{
                 "uni_color");
         this.color = color;
     }
-    public Object2d(List<ShaderModuleData> shaderModuleDataList,
-                    List<Vector3f> vertices,
-                    List<Vector3f> verticesColor) {
+    public Object(List<ShaderModuleData> shaderModuleDataList,
+                  List<Vector3f> vertices,
+                  List<Vector3f> verticesColor) {
         super(shaderModuleDataList);
         this.vertices = vertices;
         this.verticesColor = verticesColor;
@@ -116,7 +116,7 @@ public class Object2d extends ShaderProgram{
         //GL_TRIANGLES
         //GL_TRIANGLE_FAN
         //GL_POINT
-        glDrawArrays(GL_TRIANGLES,
+        glDrawArrays(GL_POLYGON,
                 0,
                 vertices.size());
     }

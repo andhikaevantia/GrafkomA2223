@@ -1,4 +1,5 @@
 import Engine.*;
+import Engine.Object;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -16,12 +17,12 @@ public class Main {
     private Window window =
             new Window
     (800,800,"Hello World");
-    private ArrayList<Object2d> objects
+    private ArrayList<Object> objects
             = new ArrayList<>();
-    private ArrayList<Object2d> objectsRectangle
+    private ArrayList<Object> objectsRectangle
             = new ArrayList<>();
 
-    private ArrayList<Object2d> objectsPointsControl
+    private ArrayList<Object> objectsPointsControl
             = new ArrayList<>();
 
     private MouseInput mouseInput;
@@ -49,69 +50,82 @@ public class Main {
 //            ),
 //            new Vector4f(0.0f,1.0f,1.0f,1.0f)
 //        ));
-        objects.add(new Object2d(
-            Arrays.asList(
-                //shaderFile lokasi menyesuaikan objectnya
-                new ShaderProgram.ShaderModuleData
-                ("resources/shaders/" +
-                    "sceneWithVerticesColor.vert"
-                        , GL_VERTEX_SHADER),
-                new ShaderProgram.ShaderModuleData
-                    ("resources/shaders/" +
-                    "sceneWithVerticesColor.frag"
-                            , GL_FRAGMENT_SHADER)
-        ),
-        new ArrayList<>(
-                List.of(
-                    new Vector3f(0.0f,0.5f,0.0f),
-                    new Vector3f(-0.5f,-0.5f,0.0f),
-                    new Vector3f(0.5f,-0.5f,0.0f)
-                )
-            ),
-        new ArrayList<>(
-            List.of(
-                new Vector3f(1.0f,0.0f,0.0f),
-                new Vector3f(0.0f,1.0f,0.0f),
-                new Vector3f(0.0f,0.0f,1.0f)
-            )
-        )
+//        objects.add(new Object(
+//            Arrays.asList(
+//                //shaderFile lokasi menyesuaikan objectnya
+//                new ShaderProgram.ShaderModuleData
+//                ("resources/shaders/" +
+//                    "sceneWithVerticesColor.vert"
+//                        , GL_VERTEX_SHADER),
+//                new ShaderProgram.ShaderModuleData
+//                    ("resources/shaders/" +
+//                    "sceneWithVerticesColor.frag"
+//                            , GL_FRAGMENT_SHADER)
+//        ),
+//        new ArrayList<>(
+//                List.of(
+//                    new Vector3f(0.0f,0.5f,0.0f),
+//                    new Vector3f(-0.5f,-0.5f,0.0f),
+//                    new Vector3f(0.5f,-0.5f,0.0f)
+//                )
+//            ),
+//        new ArrayList<>(
+//            List.of(
+//                new Vector3f(1.0f,0.0f,0.0f),
+//                new Vector3f(0.0f,1.0f,0.0f),
+//                new Vector3f(0.0f,0.0f,1.0f)
+//            )
+//        )
+//        ));
+//        objectsRectangle.add(new Rectangle(
+//            Arrays.asList(
+//                //shaderFile lokasi menyesuaikan objectnya
+//                new ShaderProgram.ShaderModuleData
+//                ("resources/shaders/scene.vert"
+//                , GL_VERTEX_SHADER),
+//                new ShaderProgram.ShaderModuleData
+//                ("resources/shaders/scene.frag"
+//                , GL_FRAGMENT_SHADER)
+//            ),
+//            new ArrayList<>(
+//                List.of(
+//                    new Vector3f(0.0f,0.0f,0.0f),
+//                    new Vector3f(0.5f,0.0f,0.0f),
+//                    new Vector3f(0.0f,0.5f,0.0f),
+//                    new Vector3f( 0.5f,0.5f,0.0f)
+//                )
+//            ),
+//            new Vector4f(0.0f,1.0f,1.0f,1.0f),
+//            Arrays.asList(0,1,2,1,2,3)
+//
+//        ));
+//        objectsPointsControl.add(new Object(
+//            Arrays.asList(
+//                //shaderFile lokasi menyesuaikan objectnya
+//                new ShaderProgram.ShaderModuleData
+//                ("resources/shaders/scene.vert"
+//                , GL_VERTEX_SHADER),
+//                new ShaderProgram.ShaderModuleData
+//                ("resources/shaders/scene.frag"
+//                , GL_FRAGMENT_SHADER)
+//            ),
+//            new ArrayList<>(),
+//            new Vector4f(0.0f,1.0f,1.0f,1.0f)
+//        ));
+        objects.add(new Sphere(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData("resources/shaders/scene.vert", GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData("resources/shaders/scene.frag", GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.0f,1.0f,0.0f,1.0f),
+                Arrays.asList(0.0f,0.0f,0.0f),
+                0.5f,
+                0.5f,
+                0.5f,
+                36,
+                18
         ));
-        objectsRectangle.add(new Rectangle(
-            Arrays.asList(
-                //shaderFile lokasi menyesuaikan objectnya
-                new ShaderProgram.ShaderModuleData
-                ("resources/shaders/scene.vert"
-                , GL_VERTEX_SHADER),
-                new ShaderProgram.ShaderModuleData
-                ("resources/shaders/scene.frag"
-                , GL_FRAGMENT_SHADER)
-            ),
-            new ArrayList<>(
-                List.of(
-                    new Vector3f(0.0f,0.0f,0.0f),
-                    new Vector3f(0.5f,0.0f,0.0f),
-                    new Vector3f(0.0f,0.5f,0.0f),
-                    new Vector3f( 0.5f,0.5f,0.0f)
-                )
-            ),
-            new Vector4f(0.0f,1.0f,1.0f,1.0f),
-            Arrays.asList(0,1,2,1,2,3)
-
-        ));
-        objectsPointsControl.add(new Object2d(
-            Arrays.asList(
-                //shaderFile lokasi menyesuaikan objectnya
-                new ShaderProgram.ShaderModuleData
-                ("resources/shaders/scene.vert"
-                , GL_VERTEX_SHADER),
-                new ShaderProgram.ShaderModuleData
-                ("resources/shaders/scene.frag"
-                , GL_FRAGMENT_SHADER)
-            ),
-            new ArrayList<>(),
-            new Vector4f(0.0f,1.0f,1.0f,1.0f)
-        ));
-
     }
     public void input(){
         if (window.isKeyPressed(GLFW_KEY_W)) {
@@ -143,13 +157,13 @@ public class Main {
             input();
 
             //code
-            for(Object2d object: objects){
-                object.drawWithVerticesColor();
-            }
-            for(Object2d object: objectsRectangle){
+            for(Object object: objects){
                 object.draw();
             }
-            for(Object2d object: objectsPointsControl){
+            for(Object object: objectsRectangle){
+                object.draw();
+            }
+            for(Object object: objectsPointsControl){
                 object.drawLine();
             }
 

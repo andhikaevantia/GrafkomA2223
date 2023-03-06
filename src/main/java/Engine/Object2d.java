@@ -137,4 +137,18 @@ public class Object2d extends ShaderProgram{
                 0,
                 vertices.size());
     }
+    public void drawLine(){
+        drawSetup();
+        // Draw the vertices
+        //optional
+        glLineWidth(1); //ketebalan garis
+        glPointSize(1); //besar kecil vertex
+        glDrawArrays(GL_LINE_STRIP,
+                0,
+                vertices.size());
+    }
+    public void addVertices(Vector3f newVertices){
+        vertices.add(newVertices);
+        setupVAOVBO();
+    }
 }

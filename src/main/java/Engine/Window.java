@@ -19,6 +19,8 @@ public class Window {
     private int width, height;
     private String title;
 
+    private MouseInput mouseInput;
+
 
     public Window(int width, int height, String title){
         this.width = width;
@@ -98,6 +100,8 @@ public class Window {
         // Make the window visible
         glfwShowWindow(window);
 
+        mouseInput = new MouseInput(window);
+
     }
 
     public void update(){
@@ -111,6 +115,8 @@ public class Window {
         if(glfwWindowShouldClose(window))
             open = false;
 
+        mouseInput.input();
+
     }
 
     public void cleanup(){
@@ -123,5 +129,7 @@ public class Window {
         return glfwGetKey(window, keyCode) == GLFW_PRESS;
     }
 
-
+    public MouseInput getMouseInput() {
+        return mouseInput;
+    }
 }

@@ -19,8 +19,8 @@ public class Sphere extends Circle{
         this.radiusZ = radiusZ;
         this.stackCount = stackCount;
         this.sectorCount = sectorCount;
-        //createBox();
-        createSphere();
+        createBox();
+//        createSphere();
         setupVAOVBO();
     }
     public void createBox(){
@@ -109,9 +109,9 @@ public class Sphere extends Circle{
     }
     public void draw(){
         drawSetup();
-        glLineWidth(10); //ketebalan garis
-        glPointSize(10); //besar kecil vertex
-        glDrawArrays(GL_POLYGON,
+        glLineWidth(2); //ketebalan garis
+        glPointSize(2); //besar kecil vertex
+        glDrawArrays(GL_LINE_STRIP,
                 0,
                 vertices.size());
     }

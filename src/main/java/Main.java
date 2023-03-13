@@ -120,16 +120,18 @@ public class Main {
                 new ArrayList<>(),
                 new Vector4f(0.0f,1.0f,0.0f,1.0f),
                 Arrays.asList(0.0f,0.0f,0.0f),
-                0.5f,
-                0.5f,
-                0.5f,
+                0.125f,
+                0.125f,
+                0.125f,
                 36,
                 18
         ));
+//        objects.get(0).translateObject(0.5f,0.0f,0.0f);
+        objects.get(0).scaleObject(2f,2f,2f);
     }
     public void input(){
         if (window.isKeyPressed(GLFW_KEY_W)) {
-            System.out.println("W");
+            objects.get(0).rotateObject((float) Math.toRadians(0.5f),0.0f,0.0f,1.0f);
         }
         if(mouseInput.isLeftButtonPressed()){
             Vector2f pos = mouseInput.getCurrentPos();
@@ -142,7 +144,7 @@ public class Main {
 
             if((!(pos.x > 1 || pos.x < -0.97) && !(pos.y > 0.97 || pos.y < -1))){
                 System.out.println("x : "+pos.x+" y : "+pos.y);
-                objectsPointsControl.get(0).addVertices(new Vector3f(pos.x,pos.y,0));
+//                objectsPointsControl.get(0).addVertices(new Vector3f(pos.x,pos.y,0));
             }
         }
 

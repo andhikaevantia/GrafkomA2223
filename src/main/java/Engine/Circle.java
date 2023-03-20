@@ -9,7 +9,7 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class Circle extends Object {
-    List<Float> centerPoint;
+
     Float radiusX;
     Float radiusY;
     public Circle(List<ShaderModuleData> shaderModuleDataList, List<Vector3f> vertices, Vector4f color, List<Float> centerPoint, Float radiusX,Float radiusY) {
@@ -62,8 +62,8 @@ public class Circle extends Object {
             }
         }
     }
-    public void draw(){
-        drawSetup();
-        glDrawArrays(GL_TRIANGLE_FAN, 0, vertices.size());
-    }
+//    public void draw(){
+//        drawSetup();
+//        glDrawArrays(GL_TRIANGLE_FAN, 0, vertices.size());
+//    }
 }

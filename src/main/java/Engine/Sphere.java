@@ -107,14 +107,14 @@ public class Sphere extends Circle{
         vertices.add(tempVertices.get(7));
         vertices.add(tempVertices.get(6));
     }
-    public void draw(){
-        drawSetup();
-        glLineWidth(2); //ketebalan garis
-        glPointSize(2); //besar kecil vertex
-        glDrawArrays(GL_LINE_STRIP,
-                0,
-                vertices.size());
-    }
+//    public void draw(){
+//        drawSetup();
+//        glLineWidth(2); //ketebalan garis
+//        glPointSize(2); //besar kecil vertex
+//        glDrawArrays(GL_LINE_STRIP,
+//                0,
+//                vertices.size());
+//    }
     public void createSphere(){
         float pi = (float)Math.PI;
 

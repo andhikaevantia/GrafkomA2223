@@ -26,6 +26,7 @@ public class Main {
             = new ArrayList<>();
 
     private MouseInput mouseInput;
+    int countDegree = 0;
     public void init(){
         window.init();
         GL.createCapabilities();
@@ -128,10 +129,84 @@ public class Main {
         ));
 //        objects.get(0).translateObject(0.5f,0.0f,0.0f);
         objects.get(0).scaleObject(2f,2f,2f);
+
+        objects.get(0).getChildObject().add(new Sphere(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData("resources/shaders/scene.vert", GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData("resources/shaders/scene.frag", GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.0f,1.0f,0.0f,1.0f),
+                Arrays.asList(0.0f,0.0f,0.0f),
+                0.125f,
+                0.125f,
+                0.125f,
+                36,
+                18
+        ));
+        objects.get(0).getChildObject().get(0).translateObject(0.25f,0.0f,0.0f);
+//        objects.get(0).getChildObject().get(0).setCenterPoint(Arrays.asList(0.25f,0.0f,0.0f));
+
+        objects.get(0).getChildObject().add(new Sphere(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData("resources/shaders/scene.vert", GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData("resources/shaders/scene.frag", GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.0f,1.0f,0.0f,1.0f),
+                Arrays.asList(0.0f,0.0f,0.0f),
+                0.125f,
+                0.125f,
+                0.125f,
+                36,
+                18
+        ));
+        objects.get(0).getChildObject().get(1).translateObject(0.5f,0.0f,0.0f);
+//        objects.get(0).getChildObject().get(1).setCenterPoint(Arrays.asList(0.5f,0.0f,0.0f));
+
+        objects.get(0).getChildObject().get(1).getChildObject().add(new Sphere(
+                Arrays.asList(
+                        new ShaderProgram.ShaderModuleData("resources/shaders/scene.vert", GL_VERTEX_SHADER),
+                        new ShaderProgram.ShaderModuleData("resources/shaders/scene.frag", GL_FRAGMENT_SHADER)
+                ),
+                new ArrayList<>(),
+                new Vector4f(0.0f,1.0f,0.0f,1.0f),
+                Arrays.asList(0.0f,0.0f,0.0f),
+                0.125f,
+                0.125f,
+                0.125f,
+                36,
+                18
+        ));
+        objects.get(0).getChildObject().get(1).getChildObject().get(0).scaleObject(0.5f,0.5f,0.5f);
+        objects.get(0).getChildObject().get(1).getChildObject().get(0).translateObject(0.5f,-0.1f,0.0f);
+//        objects.get(0).getChildObject().get(1).getChildObject().get(0).setCenterPoint(Arrays.asList(0.5f,-0.1f,0.0f));
     }
     public void input(){
         if (window.isKeyPressed(GLFW_KEY_W)) {
+            countDegree++;
+            //rotasi terhadap matahari
             objects.get(0).rotateObject((float) Math.toRadians(0.5f),0.0f,0.0f,1.0f);
+            for(Object child:objects.get(0).getChildObject()){
+                List<Float> temp = new ArrayList<>(child.getCenterPoint());
+                //rotasi terhadap sumbu masing-masing planet
+                child.translateObject(temp.get(0)*-1,temp.get(1)*-1,temp.get(2)*-1);
+                child.rotateObject((float) Math.toRadians(0.5f),0.0f,0.0f,1.0f);
+                child.translateObject(temp.get(0)*1,temp.get(1)*1,temp.get(2)*1);
+                for(Object y:objects.get(0).getChildObject().get(1).getChildObject()){
+                    //rotasi terhadap bumi
+                    List<Float> temp1 = new ArrayList<>(objects.get(0).getChildObject().get(1).getCenterPoint());
+                    y.translateObject(temp1.get(0)*-1,temp1.get(1)*-1,temp1.get(2)*-1);
+                    y.rotateObject((float) Math.toRadians(0.5f),0.0f,0.0f,1.0f);
+                    y.translateObject(temp1.get(0)*1,temp1.get(1)*1,temp1.get(2)*1);
+                    //rotasi terhadap sumbunya sendiri
+                    temp1 = new ArrayList<>(objects.get(0).getChildObject().get(1).getChildObject().get(0).getCenterPoint());
+                    y.translateObject(temp1.get(0)*-1,temp1.get(1)*-1,temp1.get(2)*-1);
+                    y.rotateObject((float) Math.toRadians(0.5f),0.0f,0.0f,1.0f);
+                    y.translateObject(temp1.get(0)*1,temp1.get(1)*1,temp1.get(2)*1);
+                }
+                child.rotateObject((float) Math.toRadians(0.5f),0.0f,0.0f,1.0f);
+            }
         }
         if(mouseInput.isLeftButtonPressed()){
             Vector2f pos = mouseInput.getCurrentPos();

@@ -4,6 +4,8 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.lwjgl.opengl.GL15.*;
@@ -24,6 +26,27 @@ public class Object extends ShaderProgram{
     Matrix4f model;
 
     int vboColor;
+
+    List<Object> childObject;
+    List<Float> centerPoint;
+
+    public List<Object> getChildObject() {
+        return childObject;
+    }
+
+    public void setChildObject(List<Object> childObject) {
+        this.childObject = childObject;
+    }
+
+    public List<Float> getCenterPoint() {
+        updateCenterPoint();
+        return centerPoint;
+    }
+
+    public void setCenterPoint(List<Float> centerPoint) {
+        this.centerPoint = centerPoint;
+    }
+
     List<Vector3f> verticesColor;
     public Object(List<ShaderModuleData> shaderModuleDataList
             , List<Vector3f> vertices
@@ -38,6 +61,8 @@ public class Object extends ShaderProgram{
                 "model");
         this.color = color;
         model = new Matrix4f().identity();
+        childObject = new ArrayList<>();
+        centerPoint = Arrays.asList(0f,0f,0f);
     }
     public Object(List<ShaderModuleData> shaderModuleDataList,
                   List<Vector3f> vertices,
@@ -127,6 +152,9 @@ public class Object extends ShaderProgram{
         glDrawArrays(GL_POLYGON,
                 0,
                 vertices.size());
+        for(Object child:childObject){
+            child.draw();
+        }
     }
     public void drawWithVerticesColor(){
         drawSetupWithVerticesColor();
@@ -161,12 +189,32 @@ public class Object extends ShaderProgram{
     }
     public void translateObject(Float offsetX,Float offsetY,Float offsetZ){
         model = new Matrix4f().translate(offsetX,offsetY,offsetZ).mul(new Matrix4f(model));
+        updateCenterPoint();
+        for(Object child:childObject){
+            child.translateObject(offsetX,offsetY,offsetZ);
+        }
     }
     public void rotateObject(Float degree, Float x,Float y,Float z){
         model = new Matrix4f().rotate(degree,x,y,z).mul(new Matrix4f(model));
+        updateCenterPoint();
+        for(Object child:childObject){
+            child.rotateObject(degree,x,y,z);
+        }
+
+    }
+    public void updateCenterPoint(){
+        Vector3f destTemp = new Vector3f();
+        model.transformPosition(0.0f,0.0f,0.0f,destTemp);
+        centerPoint.set(0,destTemp.x);
+        centerPoint.set(1,destTemp.y);
+        centerPoint.set(2,destTemp.z);
+        System.out.println(centerPoint.get(0) + " " + centerPoint.get(1));
     }
     public void scaleObject(Float scaleX,Float scaleY,Float scaleZ){
         model = new Matrix4f().scale(scaleX,scaleY,scaleZ).mul(new Matrix4f(model));
+        for(Object child:childObject){
+            child.translateObject(scaleX,scaleY,scaleZ);
+        }
     }
 
 }

@@ -59,6 +59,10 @@ public class Object extends ShaderProgram{
                 "uni_color");
         uniformsMap.createUniform(
                 "model");
+        uniformsMap.createUniform(
+                "projection");
+        uniformsMap.createUniform(
+                "view");
         this.color = color;
         model = new Matrix4f().identity();
         childObject = new ArrayList<>();
@@ -103,12 +107,16 @@ public class Object extends ShaderProgram{
                 Utils.listoFloat(verticesColor),
                 GL_STATIC_DRAW);
     }
-    public void drawSetup(){
+    public void drawSetup(Camera camera, Projection projection){
         bind();
         uniformsMap.setUniform(
                 "uni_color", color);
         uniformsMap.setUniform(
                 "model", model);
+        uniformsMap.setUniform(
+                "view", camera.getViewMatrix());
+        uniformsMap.setUniform(
+                "projection", projection.getProjMatrix());
         // Bind VBO
         glEnableVertexAttribArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -136,8 +144,8 @@ public class Object extends ShaderProgram{
                 false,
                 0, 0);
     }
-    public void draw(){
-        drawSetup();
+    public void draw(Camera camera, Projection projection){
+        drawSetup(camera, projection);
         // Draw the vertices
         //optional
         glLineWidth(10); //ketebalan garis
@@ -153,7 +161,7 @@ public class Object extends ShaderProgram{
                 0,
                 vertices.size());
         for(Object child:childObject){
-            child.draw();
+            child.draw(camera,projection);
         }
     }
     public void drawWithVerticesColor(){
@@ -173,16 +181,16 @@ public class Object extends ShaderProgram{
                 0,
                 vertices.size());
     }
-    public void drawLine(){
-        drawSetup();
-        // Draw the vertices
-        //optional
-        glLineWidth(1); //ketebalan garis
-        glPointSize(1); //besar kecil vertex
-        glDrawArrays(GL_LINE_STRIP,
-                0,
-                vertices.size());
-    }
+//    public void drawLine(){
+//        drawSetup();
+//        // Draw the vertices
+//        //optional
+//        glLineWidth(1); //ketebalan garis
+//        glPointSize(1); //besar kecil vertex
+//        glDrawArrays(GL_LINE_STRIP,
+//                0,
+//                vertices.size());
+//    }
     public void addVertices(Vector3f newVertices){
         vertices.add(newVertices);
         setupVAOVBO();

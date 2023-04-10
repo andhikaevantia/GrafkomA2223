@@ -27,10 +27,14 @@ public class Main {
 
     private MouseInput mouseInput;
     int countDegree = 0;
+    Projection projection = new Projection(window.getWidth(),window.getHeight());
+    Camera camera = new Camera();
     public void init(){
         window.init();
         GL.createCapabilities();
         mouseInput = window.getMouseInput();
+        camera.setPosition(0,0,1.7f);
+        camera.setRotation((float)Math.toRadians(0.0f),(float)Math.toRadians(30.0f));
         //code
 //        objects.add(new Object2d(
 //            Arrays.asList(
@@ -128,7 +132,7 @@ public class Main {
                 18
         ));
 //        objects.get(0).translateObject(0.5f,0.0f,0.0f);
-        objects.get(0).scaleObject(2f,2f,2f);
+        objects.get(0).scaleObject(1f,1f,1f);
 
         objects.get(0).getChildObject().add(new Sphere(
                 Arrays.asList(
@@ -235,14 +239,14 @@ public class Main {
 
             //code
             for(Object object: objects){
-                object.draw();
+                object.draw(camera,projection);
             }
-            for(Object object: objectsRectangle){
-                object.draw();
-            }
-            for(Object object: objectsPointsControl){
-                object.drawLine();
-            }
+//            for(Object object: objectsRectangle){
+//                object.draw();
+//            }
+//            for(Object object: objectsPointsControl){
+//                object.drawLine();
+//            }
 
             // Restore state
             glDisableVertexAttribArray(0);

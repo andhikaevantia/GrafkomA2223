@@ -187,46 +187,28 @@ public class Main {
 //        objects.get(0).getChildObject().get(1).getChildObject().get(0).setCenterPoint(Arrays.asList(0.5f,-0.1f,0.0f));
     }
     public void input(){
+        float move = 0.01f;
         if (window.isKeyPressed(GLFW_KEY_W)) {
-            countDegree++;
-            //rotasi terhadap matahari
-            objects.get(0).rotateObject((float) Math.toRadians(0.5f),0.0f,0.0f,1.0f);
-            for(Object child:objects.get(0).getChildObject()){
-                List<Float> temp = new ArrayList<>(child.getCenterPoint());
-                //rotasi terhadap sumbu masing-masing planet
-                child.translateObject(temp.get(0)*-1,temp.get(1)*-1,temp.get(2)*-1);
-                child.rotateObject((float) Math.toRadians(0.5f),0.0f,0.0f,1.0f);
-                child.translateObject(temp.get(0)*1,temp.get(1)*1,temp.get(2)*1);
-                for(Object y:objects.get(0).getChildObject().get(1).getChildObject()){
-                    //rotasi terhadap bumi
-                    List<Float> temp1 = new ArrayList<>(objects.get(0).getChildObject().get(1).getCenterPoint());
-                    y.translateObject(temp1.get(0)*-1,temp1.get(1)*-1,temp1.get(2)*-1);
-                    y.rotateObject((float) Math.toRadians(0.5f),0.0f,0.0f,1.0f);
-                    y.translateObject(temp1.get(0)*1,temp1.get(1)*1,temp1.get(2)*1);
-                    //rotasi terhadap sumbunya sendiri
-                    temp1 = new ArrayList<>(objects.get(0).getChildObject().get(1).getChildObject().get(0).getCenterPoint());
-                    y.translateObject(temp1.get(0)*-1,temp1.get(1)*-1,temp1.get(2)*-1);
-                    y.rotateObject((float) Math.toRadians(0.5f),0.0f,0.0f,1.0f);
-                    y.translateObject(temp1.get(0)*1,temp1.get(1)*1,temp1.get(2)*1);
-                }
-                child.rotateObject((float) Math.toRadians(0.5f),0.0f,0.0f,1.0f);
-            }
+            camera.moveForward(move);
+        }
+        if (window.isKeyPressed(GLFW_KEY_S)) {
+            camera.moveBackwards(move);
+        }
+        if (window.isKeyPressed(GLFW_KEY_A)) {
+            camera.moveLeft(move);
+        }
+        if (window.isKeyPressed(GLFW_KEY_D)) {
+            camera.moveRight(move);
         }
         if(mouseInput.isLeftButtonPressed()){
-            Vector2f pos = mouseInput.getCurrentPos();
-//            System.out.println("x : "+pos.x+" y : "+pos.y);
-            pos.x = (pos.x - (window.getWidth())/2.0f) /
-                    (window.getWidth()/2.0f);
-            pos.y = (pos.y - (window.getHeight())/2.0f) /
-                    (-window.getHeight()/2.0f);
-            //System.out.println("x : "+pos.x+" y : "+pos.y);
-
-            if((!(pos.x > 1 || pos.x < -0.97) && !(pos.y > 0.97 || pos.y < -1))){
-                System.out.println("x : "+pos.x+" y : "+pos.y);
-//                objectsPointsControl.get(0).addVertices(new Vector3f(pos.x,pos.y,0));
-            }
+            Vector2f displayVec = window.getMouseInput().getDisplVec();
+            camera.addRotation((float)Math.toRadians(displayVec.x * 0.1f),
+                    (float)Math.toRadians(displayVec.y * 0.1f));
         }
-
+        if(window.getMouseInput().getScroll().y != 0){
+            projection.setFOV(projection.getFOV()- (window.getMouseInput().getScroll().y*0.01f));
+            window.getMouseInput().setScroll(new Vector2f());
+        }
     }
     public void loop(){
         while (window.isOpen()) {

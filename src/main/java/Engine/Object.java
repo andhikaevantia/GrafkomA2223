@@ -53,7 +53,7 @@ public class Object extends ShaderProgram{
             , Vector4f color) {
         super(shaderModuleDataList);
         this.vertices = vertices;
-        setupVAOVBO();
+//        setupVAOVBO();
         uniformsMap = new UniformsMap(getProgramId());
         uniformsMap.createUniform(
                 "uni_color");
@@ -157,7 +157,7 @@ public class Object extends ShaderProgram{
         //GL_TRIANGLES
         //GL_TRIANGLE_FAN
         //GL_POINT
-        glDrawArrays(GL_POLYGON,
+        glDrawArrays(GL_TRIANGLES,
                 0,
                 vertices.size());
         for(Object child:childObject){

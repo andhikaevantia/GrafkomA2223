@@ -33,7 +33,7 @@ public class Main {
         window.init();
         GL.createCapabilities();
         mouseInput = window.getMouseInput();
-        camera.setPosition(0,0,1.7f);
+        camera.setPosition(0,0,1.0f);
         camera.setRotation((float)Math.toRadians(0.0f),(float)Math.toRadians(30.0f));
         //code
 //        objects.add(new Object2d(
@@ -132,59 +132,59 @@ public class Main {
                 18
         ));
 //        objects.get(0).translateObject(0.5f,0.0f,0.0f);
-        objects.get(0).scaleObject(1f,1f,1f);
-
-        objects.get(0).getChildObject().add(new Sphere(
-                Arrays.asList(
-                        new ShaderProgram.ShaderModuleData("resources/shaders/scene.vert", GL_VERTEX_SHADER),
-                        new ShaderProgram.ShaderModuleData("resources/shaders/scene.frag", GL_FRAGMENT_SHADER)
-                ),
-                new ArrayList<>(),
-                new Vector4f(0.0f,1.0f,0.0f,1.0f),
-                Arrays.asList(0.0f,0.0f,0.0f),
-                0.125f,
-                0.125f,
-                0.125f,
-                36,
-                18
-        ));
-        objects.get(0).getChildObject().get(0).translateObject(0.25f,0.0f,0.0f);
-//        objects.get(0).getChildObject().get(0).setCenterPoint(Arrays.asList(0.25f,0.0f,0.0f));
-
-        objects.get(0).getChildObject().add(new Sphere(
-                Arrays.asList(
-                        new ShaderProgram.ShaderModuleData("resources/shaders/scene.vert", GL_VERTEX_SHADER),
-                        new ShaderProgram.ShaderModuleData("resources/shaders/scene.frag", GL_FRAGMENT_SHADER)
-                ),
-                new ArrayList<>(),
-                new Vector4f(0.0f,1.0f,0.0f,1.0f),
-                Arrays.asList(0.0f,0.0f,0.0f),
-                0.125f,
-                0.125f,
-                0.125f,
-                36,
-                18
-        ));
-        objects.get(0).getChildObject().get(1).translateObject(0.5f,0.0f,0.0f);
-//        objects.get(0).getChildObject().get(1).setCenterPoint(Arrays.asList(0.5f,0.0f,0.0f));
-
-        objects.get(0).getChildObject().get(1).getChildObject().add(new Sphere(
-                Arrays.asList(
-                        new ShaderProgram.ShaderModuleData("resources/shaders/scene.vert", GL_VERTEX_SHADER),
-                        new ShaderProgram.ShaderModuleData("resources/shaders/scene.frag", GL_FRAGMENT_SHADER)
-                ),
-                new ArrayList<>(),
-                new Vector4f(0.0f,1.0f,0.0f,1.0f),
-                Arrays.asList(0.0f,0.0f,0.0f),
-                0.125f,
-                0.125f,
-                0.125f,
-                36,
-                18
-        ));
-        objects.get(0).getChildObject().get(1).getChildObject().get(0).scaleObject(0.5f,0.5f,0.5f);
-        objects.get(0).getChildObject().get(1).getChildObject().get(0).translateObject(0.5f,-0.1f,0.0f);
-//        objects.get(0).getChildObject().get(1).getChildObject().get(0).setCenterPoint(Arrays.asList(0.5f,-0.1f,0.0f));
+//        objects.get(0).scaleObject(1f,1f,1f);
+//
+//        objects.get(0).getChildObject().add(new Sphere(
+//                Arrays.asList(
+//                        new ShaderProgram.ShaderModuleData("resources/shaders/scene.vert", GL_VERTEX_SHADER),
+//                        new ShaderProgram.ShaderModuleData("resources/shaders/scene.frag", GL_FRAGMENT_SHADER)
+//                ),
+//                new ArrayList<>(),
+//                new Vector4f(0.0f,1.0f,0.0f,1.0f),
+//                Arrays.asList(0.0f,0.0f,0.0f),
+//                0.125f,
+//                0.125f,
+//                0.125f,
+//                36,
+//                18
+//        ));
+//        objects.get(0).getChildObject().get(0).translateObject(0.25f,0.0f,0.0f);
+////        objects.get(0).getChildObject().get(0).setCenterPoint(Arrays.asList(0.25f,0.0f,0.0f));
+//
+//        objects.get(0).getChildObject().add(new Sphere(
+//                Arrays.asList(
+//                        new ShaderProgram.ShaderModuleData("resources/shaders/scene.vert", GL_VERTEX_SHADER),
+//                        new ShaderProgram.ShaderModuleData("resources/shaders/scene.frag", GL_FRAGMENT_SHADER)
+//                ),
+//                new ArrayList<>(),
+//                new Vector4f(0.0f,1.0f,0.0f,1.0f),
+//                Arrays.asList(0.0f,0.0f,0.0f),
+//                0.125f,
+//                0.125f,
+//                0.125f,
+//                36,
+//                18
+//        ));
+//        objects.get(0).getChildObject().get(1).translateObject(0.5f,0.0f,0.0f);
+////        objects.get(0).getChildObject().get(1).setCenterPoint(Arrays.asList(0.5f,0.0f,0.0f));
+//
+//        objects.get(0).getChildObject().get(1).getChildObject().add(new Sphere(
+//                Arrays.asList(
+//                        new ShaderProgram.ShaderModuleData("resources/shaders/scene.vert", GL_VERTEX_SHADER),
+//                        new ShaderProgram.ShaderModuleData("resources/shaders/scene.frag", GL_FRAGMENT_SHADER)
+//                ),
+//                new ArrayList<>(),
+//                new Vector4f(0.0f,1.0f,0.0f,1.0f),
+//                Arrays.asList(0.0f,0.0f,0.0f),
+//                0.125f,
+//                0.125f,
+//                0.125f,
+//                36,
+//                18
+//        ));
+//        objects.get(0).getChildObject().get(1).getChildObject().get(0).scaleObject(0.5f,0.5f,0.5f);
+//        objects.get(0).getChildObject().get(1).getChildObject().get(0).translateObject(0.5f,-0.1f,0.0f);
+////        objects.get(0).getChildObject().get(1).getChildObject().get(0).setCenterPoint(Arrays.asList(0.5f,-0.1f,0.0f));
     }
     public void input(){
         float move = 0.01f;

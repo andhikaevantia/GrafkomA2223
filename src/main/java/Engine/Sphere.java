@@ -320,9 +320,12 @@ public class Sphere extends Circle{
                 GL_FLOAT,
                 false,
                 0, 0);
+        //directional Light
+        uniformsMap.setUniform("dirLight.direction", new Vector3f(-0.2f,-1.0f,-0.3f));
+        uniformsMap.setUniform("dirLight.ambient", new Vector3f(0.05f,0.05f,0.05f));
+        uniformsMap.setUniform("dirLight.diffuse", new Vector3f(0.4f,0.4f,0.4f));
+        uniformsMap.setUniform("dirLight.specular", new Vector3f(0.5f,0.5f,0.5f));
 
-        uniformsMap.setUniform("lightColor",new Vector3f(1.0f,1.0f,0.0f));
-        uniformsMap.setUniform("lightPos",new Vector3f(1.0f,1.0f,0.0f));
         uniformsMap.setUniform("viewPos",camera.getPosition());
     }
 //    public void draw(){

@@ -1,37 +1,43 @@
 #version 330
+//Directional Light
+ struct DirLight{
+    vec3 direction;
 
+     vec3 ambient;
+     vec3 diffuse;
+     vec3 specular;
+};
+uniform DirLight dirLight;
 out vec4 fragColor;
 uniform vec4 uni_color;
-uniform vec3 lightColor;
-uniform vec3 lightPos;
+
 uniform vec3 viewPos;
 
 in vec3 Normal;
 in vec3 FragPos;
-void main()
-{
-    //ambient
-    float ambientStrength = 0.1;
-    vec3 ambient = ambientStrength * lightColor;
 
+vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir){
+    vec3 lightDir = normalize(-light.direction);
 
     //diffuse
-    vec3 lightDir = normalize(lightPos - FragPos);
-    float diff = max(dot(Normal,lightDir),0.0f);
-    vec3 diffuse = diff * lightColor;
-
+    float diff = max(dot(normal,lightDir),0.0);
     //specular
-    float specularStrength = 0.5;
-    vec3 viewDir = normalize(viewPos - FragPos);
-    //blinn-phong
-    vec3 halfwayDir = normalize(lightDir + viewDir);
-    //pow pangkat 2 * 3
-    float spec = pow(max(dot(Normal,halfwayDir),0.0),64*3);
-//    //original phong
-//    vec3 reflectDir = reflect(-lightDir,Normal);
-//    float spec = pow(max(dot(viewDir, reflectDir),0.0),64);
-    vec3 specular = specularStrength * spec * lightColor;
+    vec3 reflectDir = reflect(-lightDir,normal);
+    float spec = pow(max(dot(viewDir, reflectDir),0.0),64);
 
-    vec3 result = (ambient+diffuse+specular) * vec3(uni_color);
-    fragColor = vec4(result,1.0);
+    vec3 ambient = light.ambient;
+    vec3 diffuse = light.diffuse * diff;
+    vec3 specular = light.specular * spec;
+    return(ambient + diffuse + specular);
+}
+void main()
+{
+    //properties
+    vec3 normal = normalize(Normal);
+    vec3 viewDir = normalize(viewPos - FragPos);
+    //Directional Light
+    vec3 result = CalcDirLight(dirLight,normal,viewDir);
+
+
+    fragColor = vec4(result * vec3(uni_color),1.0);
 }

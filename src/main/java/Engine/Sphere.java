@@ -305,8 +305,8 @@ public class Sphere extends Circle{
                 Utils.listoFloat(normal),
                 GL_STATIC_DRAW);
 
-        uniformsMap.createUniform("lightColor");
-        uniformsMap.createUniform("lightPos");
+//        uniformsMap.createUniform("lightColor");
+//        uniformsMap.createUniform("lightPos");
 
     }
 
@@ -323,6 +323,7 @@ public class Sphere extends Circle{
 
         uniformsMap.setUniform("lightColor",new Vector3f(1.0f,1.0f,0.0f));
         uniformsMap.setUniform("lightPos",new Vector3f(1.0f,1.0f,0.0f));
+        uniformsMap.setUniform("viewPos",camera.getPosition());
     }
 //    public void draw(){
 //        drawSetup();

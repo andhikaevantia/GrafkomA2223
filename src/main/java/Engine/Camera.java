@@ -51,6 +51,10 @@ public class Camera {
         recalculate();
     }
 
+    public Vector3f getDirection() {
+        return direction;
+    }
+
     public void moveLeft(float inc) {
         viewMatrix.positiveX(right).mul(inc);
         position.sub(right);
